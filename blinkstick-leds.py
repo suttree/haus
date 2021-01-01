@@ -14,17 +14,21 @@ class Main(blinkstick.BlinkStickPro):
         blue = randint(0, 255)
 
         x = 0
+	reps = 0
         sign = 1
         try:
             while True:
                 self.bstick.set_color(0, x, red, green, blue)
-                time.sleep(0.02)
-                self.bstick.set_color(0, x, 0, 0, 0)
-                time.sleep(0.004)
+                time.sleep(0.2)
+
+		if reps % 2 == 0:
+                	self.bstick.set_color(0, x, 0, 0, 0)
+                	time.sleep(0.004)
 
                 x += sign
                 if x == self.r_led_count - 1:
                     sign = -1
+                    reps += 1
                     red = randint(0, 255)
                     green = randint(0, 255)
                     blue = randint(0, 255)
