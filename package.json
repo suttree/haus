@@ -1,0 +1,27 @@
+{
+  "name": "haus",
+  "version": "1.0.0",
+  "description": "haus",
+  "main": "playa.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/suttree/haus.git"
+  },
+  "keywords": [
+    "haus"
+  ],
+  "author": "Duncan Gough",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/suttree/haus/issues"
+  },
+  "homepage": "https://github.com/suttree/haus#readme",
+  "dependencies": {
+    "playa": "^1.0.0",
+    "tone": "^14.7.58"
+  }
+}
