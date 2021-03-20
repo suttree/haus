@@ -1,4 +1,6 @@
 import { createArp, Scale, Rhythm } from 'playa';
+const Playa = require('playa');
+
 import * as Tone from 'tone';
 import { toToneEvent } from './helpers';
 
@@ -8,10 +10,35 @@ async function ready() {
     const synth = await createSynth();
     const rhythm = Rhythm.free('1:0:0', ['4n', '8n']);
     
-    const scale = [1, 2, 3, 4, 5, 6]
-    const arp = createArp(new Scale('G4', Scale.Aeolian), scale.sort(() => Math.random() - 0.5), rhythm);
+    const notes = [1, 2, 3, 4, 5, 6]
+
+    let key = Math.floor(Math.random() * Object.keys(Playa.ScaleName).length);
+    let intervals = Playa.ScaleIntervals[Object.keys(Playa.ScaleName)[key]];
+    let scale = Playa.ScaleName[Object.keys(Playa.ScaleName)[key]];
+    console.log(intervals)
+    //console.log(Playa.ScaleName[key])
+    console.log(scale);
+    console.log(Scale[scale]);
+    //console.log(new Scale('G4', Scale[key]));
+
+    const arp = createArp(new Scale('G4', Scale[scale]), intervals, rhythm);
+
+    //const arp = createArp(new Scale('G4', Scale.Aeolian), scale.sort(() => Math.random() - 0.5), rhythm);
+    //console.log(Playa.ScaleName);
+    //console.log( Object.keys(Playa.ScaleName) );
+
+    /*
+    let key = Math.floor(Math.random() * Object.keys(Playa.ScaleName).length);
+    console.log(key)
+    console.log( Object.keys(Playa.ScaleName)[key] );
+    console.log( Playa.ScaleName[Object.keys(Playa.ScaleName)[key]] );
+    console.log(Playa.ScaleName.Dorian);
+    */
 
     //const arp = createArp(new Scale('G4', Scale.Aeolian), [1, 6, 3, 5, 3, 2], rhythm);
+
+//createMotif(scale.notes, ['4n', '2n', '8nt']);
+
 
     const part = new Tone.Part((time, value) => {
         if (value.isRest) return;
