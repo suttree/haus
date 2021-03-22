@@ -6,6 +6,44 @@ import { toToneEvent } from './helpers';
 
 const partProgress = document.getElementById('partProgress');
 
+async function ready2() {
+	const bell = new Tone.MetalSynth({
+		harmonicity: 12,
+		resonance: 400,
+		modulationIndex: 20,
+		envelope: {
+			decay: 0.4,
+		},
+		volume: -15
+	}).toDestination();
+
+	const bellPart = new Tone.Sequence(((time, freq) => {
+		bell.triggerAttack(freq, time, Math.random()*0.5 + 0.5);
+	}), [[300, null, 200], 
+	      [null, 200, 200], 
+	      [null, 200, null], 
+	      [200, null, 200]
+	], "4n").start(0);
+
+	const conga = new Tone.MembraneSynth({
+		pitchDecay: 0.008,
+		octaves: 2,
+		envelope: {
+			attack: 0.0006,
+			decay: 0.5,
+			sustain: 0 
+		}
+	}).toDestination();
+
+	const congaPart = new Tone.Sequence(((time, pitch) => {
+		conga.triggerAttack(pitch, time, Math.random()*0.5 + 0.5);
+	}), ["G3", "C4", "C4", "C4"], "4n").start(0);
+
+	Tone.Transport.bpm.value = 115;
+
+let drums = Playa.createPercussion(16, [5, 2, 12, 1, 2, 3], [], [0, 4, 0, 8, 2, 3]);
+}
+
 async function ready() {
     const synth = await createSynth();
     const rhythm = Rhythm.free('1:0:0', ['4n', '8n']);
@@ -17,11 +55,11 @@ async function ready() {
     let scale = Playa.ScaleName[Object.keys(Playa.ScaleName)[key]];
     console.log(intervals)
     //console.log(Playa.ScaleName[key])
-    console.log(scale);
-    console.log(Scale[scale]);
+    //console.log(scale);
+    //console.log(Scale[scale]);
     //console.log(new Scale('G4', Scale[key]));
 
-    const arp = createArp(new Scale('G4', Scale[scale]), intervals, rhythm);
+    //const arp = createArp(new Scale('G4', Scale[scale]), intervals, rhythm);
 
     //const arp = createArp(new Scale('G4', Scale.Aeolian), scale.sort(() => Math.random() - 0.5), rhythm);
     //console.log(Playa.ScaleName);
@@ -97,7 +135,7 @@ async function createSynth() {
 
 function play() {
     document.getElementById("play").disabled = true;
-    Tone.start().then(ready);
+    Tone.start().then(ready2);
     Tone.Transport.start('+0.01');
 }
 
