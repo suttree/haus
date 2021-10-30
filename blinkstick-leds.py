@@ -19,11 +19,11 @@ class Main(blinkstick.BlinkStickPro):
         try:
             while True:
                 self.bstick.set_color(0, x, red, green, blue)
-                time.sleep(0.2)
+                time.sleep(0.4)
 
 		if reps % 2 == 0:
                 	self.bstick.set_color(0, x, 0, 0, 0)
-                	time.sleep(0.004)
+                	time.sleep(0.006)
 
                 x += sign
                 if x == self.r_led_count - 1:
