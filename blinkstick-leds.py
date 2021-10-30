@@ -1,3 +1,5 @@
+import sys
+import signal
 import time
 import math
 import colorsys
@@ -41,9 +43,16 @@ class Main(blinkstick.BlinkStickPro):
                     sign = 1
 
 
-        except KeyboardInterrupt:
+        except:
             self.off()
             return
+
+# Catch kill signals
+def signal_term_handler(signal, frame):
+    main.off()
+    sys.exit(0)
+
+signal.signal(signal.SIGTERM, signal_term_handler)
 
 # Change the number of LEDs for r_led_count
 main = Main(r_led_count=32, max_rgb_value=128)
@@ -51,3 +60,5 @@ if main.connect():
     main.run()
 else:
     print "No BlinkSticks found"
+
+
