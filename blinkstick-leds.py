@@ -33,6 +33,10 @@ class Main(blinkstick.BlinkStickPro):
                     green = randint(0, 255)
                     blue = randint(0, 255)
 
+                    #red = 254
+                    #green = 166
+                    #blue = 33
+
                 elif x == 0:
                     sign = 1
 
